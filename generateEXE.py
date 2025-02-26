@@ -1,4 +1,4 @@
 from main import *
 
 if __name__ == "__main__":
-    appWindow()
+    app_window()
