@@ -1,10 +1,12 @@
 import ctypes
+from datetime import *
 import os
 import py_compile
 import re
 import shutil
 import subprocess
 import sys
+import time
 from tkinter import filedialog, messagebox
 import tkinter
 import win32gui
@@ -45,6 +47,8 @@ def get_python_version():
 
 
 def generate_exe_file(python_file_path):
+    start_time = time.time()
+
     check_package_status()
 
     # Regexp for a Python file
@@ -61,10 +65,11 @@ def generate_exe_file(python_file_path):
             # In case of errors, show message box and return nothing (stop the process)
             return
 
+        output_file_name = os.path.splitext(os.path.basename(python_file_path))[0]
         working_directory = os.path.join(
             os.path.expanduser("~"),
             r"Documents\generateEXE",
-            os.path.splitext(os.path.basename(python_file_path))[0],
+            output_file_name,
         )
 
         # If the working directory exists, remove it with all its content
@@ -90,15 +95,20 @@ def generate_exe_file(python_file_path):
             messagebox.showerror("Error", f"Issue with the PyInstaller directory:\n{pyinstaller_executable_path}")
             return
 
-        subprocess.run(f"{pyinstaller_executable_path} --onefile {python_file_path}")
-        exe_output_directory = os.path.join(working_directory, "dist", "")
+        subprocess.run(f"{pyinstaller_executable_path} --onefile --noconsole {python_file_path}")
 
+        exe_output_directory = os.path.join(working_directory, "dist", "")
+        exe_output_directory_log = os.path.join(working_directory, "dist")
+        execution_timestamp = datetime.now().strftime("%d/%m/%Y %H:%M")
+        processing_duration = time.time() - start_time
         with open(os.path.join(exe_output_directory, "info.txt"), "w") as info_file:
             info_file_content = (
-                f"WELCOME TO generateEXE!\n\n"
-                f"The EXE file was generated with no issues.\n"
-                f"Path of the executable file: {exe_output_directory}\n\n"
-                f"Feel free to suggest improvements: https://github.com/bolddestroyer/generateEXE.git"
+                f"-----------------------------WELCOME TO generateEXE------------------------------\n"
+                f"Execution date and time: {execution_timestamp}\n"
+                f"Processing duration: {processing_duration:.0f} seconds\n\n"
+                f"The EXE file {output_file_name}.py was generated successfully.\n"
+                f"Path of the executable file: {exe_output_directory_log}.\n\n\n"
+                f"GIT repository: https://github.com/bolddestroyer/generateEXE.git"
             )
             info_file.write(info_file_content)
 
