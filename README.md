@@ -52,24 +52,29 @@ winget install Python.Python.X.XX --source winget
 
 :grey_exclamation: (substitute `X.XX` by version, e.g. 3.13)
 
-3. Navigate to the Documents directory:
+#### 3. Navigate to the Documents directory:
 
 ```sh
 cd C:\Users\<your_user_name>\Documents
 ```
 
-4. Clone the repository:
-   ```sh
-   git clone https://github.com/bolddestroyer/generateEXE.git
-   ```
-5. Navigate to the directory where the repository is located:
-   ```sh
-   cd generateEXE
-   ```
-6. Install dependencies:
-   ```sh
-   pip install -r requirements.txt
-   ```
+#### 4. Clone the repository:
+
+```sh
+git clone https://github.com/bolddestroyer/generateEXE.git
+```
+
+#### 5. Navigate to the directory where the repository is located:
+
+```sh
+cd generateEXE
+```
+
+#### 6. Install dependencies:
+
+```sh
+pip install -r requirements.txt
+```
 
 ## Execution:
 
