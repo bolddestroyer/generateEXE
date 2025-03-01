@@ -87,7 +87,7 @@ def generate_exe_file(python_file_path):
             messagebox.showerror("Error", f"Issue with the PyInstaller directory:\n{pyinstaller_executable_path}")
             return
 
-        subprocess.run(f"{pyinstaller_executable_path} --onefile --noconsole {python_file_path}")
+        subprocess.run(f"{pyinstaller_executable_path} --clean --onefile --noconsole {python_file_path}")
 
         exe_output_directory = os.path.join(working_directory, "dist", "")
         exe_output_directory_log = os.path.join(working_directory, "dist")
